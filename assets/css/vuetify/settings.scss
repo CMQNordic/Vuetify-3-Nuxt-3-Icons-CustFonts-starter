@@ -1,0 +1,7 @@
+/* Only put variables, mixins, and functions in this settings file. */
+/* Styles should be placed in the main stylesheet or loaded another way. */
+@use 'vuetify/settings' with (
+	// add vars to modify.
+	$font-size-root: 1.4rem,
+	$body-font-family: 'Tahoma , sans-serif'
+);
