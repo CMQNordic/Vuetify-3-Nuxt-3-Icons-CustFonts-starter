@@ -10,7 +10,7 @@
 
 			<v-app-bar>
 				<v-app-bar-nav-icon @click="usedToggle()" />
-				<v-toolbar-title>I'm the header</v-toolbar-title>
+				<v-toolbar-title>I'm the Header</v-toolbar-title>
 			</v-app-bar>
 
 			<v-main class="d-flex align-center">
@@ -52,4 +52,3 @@
 		color: orange;
 	}
 </style>
-
