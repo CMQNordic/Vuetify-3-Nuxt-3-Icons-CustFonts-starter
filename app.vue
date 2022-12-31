@@ -3,13 +3,13 @@
 		<v-app>
 			<v-navigation-drawer temporary v-model="showDrawer" location="right">
 				<div class="w-100 text-right">
-					<v-btn flat icon="$close" size="x-large" @click="usedToggle()" />
+					<v-btn flat icon="$close" size="x-large" @click="toggle" />
 				</div>
 				<p class="text-center"><b>I'm the drawer</b></p>
 			</v-navigation-drawer>
 
 			<v-app-bar>
-				<v-app-bar-nav-icon @click="usedToggle()" />
+				<v-app-bar-nav-icon @click="toggle" />
 				<v-toolbar-title>I'm the Header</v-toolbar-title>
 			</v-app-bar>
 
@@ -37,18 +37,18 @@
 <script setup>
 	const showDrawer = ref(false);
 
-	const usedToggle = () => {
-		console.log('usedToggle()');
+	const toggle = () => {
+		console.log('toggle()');
 		showDrawer.value = !showDrawer.value;
 	};
 
-	/* Redundant unused code just for test purposes later on. */
+	/* Redundant unused code to test treeshaking */
 	const unusedFunction = () => console.log('unusedFunction()');
 </script>
 
 <style>
-	/* Redundant unused code just for test purposes later on. */
-	.unused-selector {
+	/* Redundant unused code to test treeshaking */
+	.unused-selector-app {
 		color: orange;
 	}
 </style>
