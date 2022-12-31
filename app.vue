@@ -16,9 +16,9 @@
 			<v-main class="d-flex align-center">
 				<v-container>
 					<v-sheet elevation="4" class="py-4 text-center">
-						<h1 class="text-h5">Styled with text-h5</h1>
-						<p>Default text in a paragraph</p>
-						<v-btn class="mt-4">press me</v-btn>
+						<p class="text-h5">Built and styled with Vuetify 3</p>
+						<p>Minimized production bundle (70kB in tot)</p>
+						<v-btn class="mt-4">press me to ripple</v-btn>
 					</v-sheet>
 				</v-container>
 			</v-main>
@@ -27,7 +27,14 @@
 				<v-row no-gutters class="justify-center text-overline font-weight-black">
 					<p class="my-auto">I'm the footer</p>
 					<v-spacer />
-					<v-btn icon variant="plain"><v-icon icon="$info" color="green-accent-4" /></v-btn>
+					<p class="my-auto">See how I was built</p>
+					<v-btn
+						icon
+						variant="plain"
+						href="https://dev.to/czerma/how-to-build-optimized-vuetify-3-nuxt-3-project-4l5k"
+						target="_blanc"
+						><v-icon icon="$info" color="green-accent-4" />
+					</v-btn>
 				</v-row>
 			</v-footer>
 		</v-app>
