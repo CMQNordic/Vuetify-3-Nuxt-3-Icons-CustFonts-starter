@@ -1,21 +1,20 @@
 # Minimal Optimized Starter for Vuetify 3 with Nuxt 3
 
-> This project adds Vuetify 3 with treeshaking, 
-> makes use only of used default svg icons and
-> finally applies removal of unused css.
+In this project starter:
 
-It is perfect as a **minimal starter** for your Vuetify 3 Nuxt 3 project.
+> Adding Vuetify 3 with treeshaking to scaffolded Nuxt 3 project. 
+> Importing only used default svg icon aliases
+> Removeing unused css with nuxt-purgecss.
 
-Read in detail my article about how it was created [here](toDO-update-later)
+Read in detail article about how it was created [here](https://dev.to/czerma/how-to-build-optimized-vuetify-3-nuxt-3-project-4l5k)
 
-Live demo [here](toDO-update-later)
+Live demo [here](https://magical-peony-07c1dc.netlify.app/)
 
 ➡️**Build for production**:
 - For purgecss first build static site: `ssr: true` + `npm run generate`
-- Copy created folder `` to `modules/purgecss/static-generated-htm/` folder.
+- Copy created folder `dist` to `modules/purgecss/static-generated-htm/`.
 - Build the project for production.
 
-> This process to get html files that will use as templates for purgecss to know what css it ok to remove.
+> By doing this we generate selector templates for purgecss to know what to remove and what not.
 
 Happy coding ✌️
-

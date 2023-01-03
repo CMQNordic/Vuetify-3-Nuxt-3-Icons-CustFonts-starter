@@ -4,7 +4,8 @@ export default defineNuxtConfig({
 	ssr: true,
 
 	modules: [
-		/* Vuetify treeshaking: https://next.vuetifyjs.com/en/features/treeshaking/ */
+		/* Vuetify treeshaking */
+		/* https://next.vuetifyjs.com/en/features/treeshaking/ */
 		async (_, nuxt) => {
 			nuxt.hooks.hook('vite:extendConfig', (config) => {
 				config?.plugins?.push(vuetify());
@@ -12,15 +13,17 @@ export default defineNuxtConfig({
 		},
 
 		/* Remove unused CSS */
+		/* https://github.com/Developmint/nuxt-purgecss */
 		[
 			'nuxt-purgecss',
 			{
+				enabled: true, // Always enable purgecss
 				content: [
-					/* Copy of 'dist' from first npm run generate */
-					'modules/purgecss/static-generated-html/**/*.html',
+					/* Scan copy of 'dist' from previous npm run generate */
+					'modules/purgecss/static-generated-html/**/*.{html,vue,jsx?,tsx?}',
 				],
 				greedy: [
-					/* Generated as runtime, keep all related selectors */
+					/* Generated at runtime, keep all related selectors */
 					/v-ripple/,
 				],
 			},
@@ -31,7 +34,7 @@ export default defineNuxtConfig({
 		transpile: ['vuetify'],
 	},
 
-	/* Added for debug purposes whe testing minification */
+	/* Added for debuging purposes when testing minification */
 	vite: {
 		build: {
 			/* Turn on/off minification of js */
@@ -41,7 +44,7 @@ export default defineNuxtConfig({
 
 	postcss: {
 		plugins: {
-			/* Turn on/minification of css */
+			/* Turn on/off minification of css */
 			cssnano: true,
 		},
 	},
