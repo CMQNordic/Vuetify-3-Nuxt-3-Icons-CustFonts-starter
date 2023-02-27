@@ -1,4 +1,5 @@
 # Minimal Optimized Starter for Vuetify 3 with Nuxt 3
+updated
 
 In this project starter:
 
