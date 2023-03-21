@@ -35,5 +35,3 @@ ssr: true +  npm run generate
 
 <br>
 Happy coding ✌️
-
-123
