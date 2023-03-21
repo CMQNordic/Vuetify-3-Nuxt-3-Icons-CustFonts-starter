@@ -6,10 +6,6 @@ export const navigationItems = [
 	["top-nav", { text: "home", path: "/" }],
 	["top-nav", { text: "about", path: "/about" }],
 	["top-nav", { text: "settings", path: "/settings" }],
-	["top-nav", { text: "blog", icon: "$menu" }],
-
-	["blog", { text: "article 1", path: "/blog-1" }],
-	["blog", { text: "article 2", path: "/blog-2" }],
 ];
 
 /** Type definition: NavigationItem

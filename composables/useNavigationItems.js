@@ -1,4 +1,4 @@
-import { navigationItems } from "~~/app-settings/navigation-items.js";
+import { navigationItems } from "@/app-settings/navigation-items.js";
 
 const { log } = useLogs();
 

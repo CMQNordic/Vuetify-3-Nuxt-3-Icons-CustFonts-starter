@@ -1,51 +1,69 @@
 import { useStorage } from "@vueuse/core";
+import { info, debug, error, assert, TODO } from "@/composables/useLogs.js ";
 
-const { log } = useLogs();
+const bVisualizeAll = useStorage("vue-app-visualize-all", false);
+const bVisualizeElements = useStorage("vue-app-visualize-frame", false);
+const bVisualizeLayouts = useStorage("vue-app-visualize-layouts", false);
 
-const areVisualizationsOn = useStorage("vue-app-visualize-all", false);
-const areLayoutVisualizationsOn = useStorage("vue-app-visualize-layouts", false);
-const areElementVisualizationsOn = useStorage("vue-app-visualize-elements", false);
-
-log.info(() =>
+info(() =>
 	console.log(`✅ Initialized Visualize:`, {
-		all: areVisualizationsOn.value ? "On" : "Off",
-		layouts: areLayoutVisualizationsOn.value ? "On" : "Off",
-		elements: areElementVisualizationsOn.value ? "On" : "Off",
+		all: bVisualizeAll.value ? "On" : "Off",
+		frame: bVisualizeElements.value ? "On" : "Off",
+		layouts: bVisualizeLayouts.value ? "On" : "Off",
 	}),
 );
 
-watch([areLayoutVisualizationsOn, areElementVisualizationsOn], (newValues) => {
-	areVisualizationsOn.value = !newValues.includes(false);
+watch([bVisualizeLayouts, bVisualizeElements], (newValues) => {
+	bVisualizeAll.value = !newValues.includes(false);
 
-	log.info(() =>
+	info(() =>
 		console.log(`✅ Visualizations changed. Status:`, {
-			layouts: areLayoutVisualizationsOn.value ? "On" : "Off",
-			elements: areElementVisualizationsOn.value ? "On" : "Off",
+			layouts: bVisualizeLayouts.value ? "On" : "Off",
+			frame: bVisualizeElements.value ? "On" : "Off",
 		}),
 	);
 });
 
-const getRefs = () => {
-	return {
-		allOn: areVisualizationsOn,
-		layoutsOn: areLayoutVisualizationsOn,
-		elementsOn: areElementVisualizationsOn,
-	};
+const setVisualize = (val = false, type = "all") => {
+	console.log(`XXX setAllVisualizations(${val})`);
+	if (type == "all") {
+		bVisualizeAll.value = val;
+		bVisualizeLayouts.value = val;
+		bVisualizeElements.value = val;
+	} else if (type == "layouts") {
+		bVisualizeLayouts.value = val;
+	} else if (type == "element") {
+		bVisualizeElements.value = val;
+	}
 };
 
-const setAll = (val = false) => {
-	console.log(`XXX setAllVisualizations(${val})`);
-	areVisualizationsOn.value = val;
-	areLayoutVisualizationsOn.value = val;
-	areElementVisualizationsOn.value = val;
-};
+const visualizeLayout = computed(() => {
+	return bVisualizeLayouts.value
+		? {
+				"background-color": "hsla(195, 85%, 48%, 0.4) !important",
+				border: "1px solid rgb(49, 71, 77) !important",
+		  }
+		: null;
+});
+
+const visualizeElement = computed(() => {
+	return bVisualizeElements.value
+		? {
+				outline: "1px dotted lightcoral !important",
+				backgroundColor: "hsla(0, 86%, 83%, 0.15) !important",
+		  }
+		: null;
+});
 
 export function useVisualize() {
 	return {
-		allOn: areVisualizationsOn,
-		layoutsOn: areLayoutVisualizationsOn,
-		elementsOn: areElementVisualizationsOn,
-		setAll,
-		getRefs,
+		visualizeLayout,
+		visualizeElement,
+		bool: {
+			bVisualizeAll,
+			bVisualizeLayouts,
+			bVisualizeElements,
+		},
+		setVisualize,
 	};
 }

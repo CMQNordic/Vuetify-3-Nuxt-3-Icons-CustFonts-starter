@@ -1,50 +1,83 @@
 <script setup>
-	const { log, refs, set } = useLogs();
-	log.info(() => console.log(`✅ Initializing Settings page`));
-
-	const infoLogsEnabled = ref(false);
-	const errorLogsEnabled = ref(false);
-
-	const { setAll, getRefs } = useVisualize();
-	const refAllOn = getRefs().allOn;
-
-	let logRefs = getLogRefsDefaults();
-
-	function printConsoleLog(val = "info") {
-		val == "info" ? log.info("This is a INFO log") : log.error("This is a ERROR log");
-	}
-
+	const isMounted = ref(false);
 	onMounted(() => {
-		log.info(() => console.log(`✅ Settings page mounted`));
-		infoLogsEnabled.value = refs.bInfo;
-		errorLogsEnabled.value = refs.bError;
+		isMounted.value = true;
+		test.value = bool.bAllLogs.value;
 	});
+
+	const {
+		bool: { bVisualizeAll },
+		setVisualize,
+	} = useVisualize();
+
+	const { log, bool, setLog } = useLogs("settings");
+	/* Following values are client side only. 	  */
+	/* Read afterMounted to avoid hydration error. */
+	const test = ref(false);
+	const bAllLogs = computed(() => isMounted.value && bool.bAllLogs.value);
+	const bInfoLogs = computed(() => isMounted.value && bool.bInfoLogs.value);
+	const bDebugLogs = computed(() => isMounted.value && bool.bDebugLogs.value);
+	const bErrorLogs = computed(() => isMounted.value && bool.bErrorLogs.value);
+	const bTodoLogs = computed(() => isMounted.value && bool.bTodoLogs.value);
+
+	const commonSwitchProperties = {
+		color: "green",
+		density: "compact",
+		"hide-details": true,
+	};
+
+	log.info(() => console.log(`✅ Initializing Settings page`));
 </script>
 
 <template>
-	<v-btn color="green" :disabled="!infoLogsEnabled" @click="printConsoleLog('info')">
-		log info to console
-	</v-btn>
-
-	<v-btn color="red" :disabled="!errorLogsEnabled" @click="printConsoleLog('error')">
-		log error to console
-	</v-btn>
+	<div>
+		<v-btn color="green" :disabled="!bInfoLogs" @click="log.info('This is a INFO log')">
+			console info log
+		</v-btn>
+		<v-btn color="red" :disabled="!bErrorLogs" @click="log.error('This is a ERROR log')">
+			console error log
+		</v-btn>
+	</div>
 
 	<v-switch
-		color="green"
-		density="compact"
-		:hideDetails="true"
-		v-model="refAllOn"
-		@update:modelValue="setAll($event)"
-		:label="`All Visualizations: ${refAllOn ? 'On' : 'Off'}`"
+		v-bind="commonSwitchProperties"
+		v-model="bAllLogs"
+		@update:modelValue="setLog($event, 'all')"
+		:label="`All logs: ${bAllLogs ? 'On' : 'Off'}`"
 	/>
 
 	<v-switch
-		color="green"
-		density="compact"
-		:hideDetails="true"
-		v-model="logRefs.areAllLogsOn.value"
-		@update:modelValue="setAllLogs($event)"
-		:label="`All logs: ${logRefs.areAllLogsOn.value ? 'On' : 'Off'}`"
+		v-bind="commonSwitchProperties"
+		v-model="bInfoLogs"
+		@update:modelValue="setLog($event, 'info')"
+		:label="`Info: ${bInfoLogs ? 'On' : 'Off'}`"
+	/>
+
+	<v-switch
+		v-bind="commonSwitchProperties"
+		v-model="bDebugLogs"
+		@update:modelValue="setLog($event, 'debug')"
+		:label="`Debug: ${bDebugLogs ? 'On' : 'Off'}`"
+	/>
+
+	<v-switch
+		v-bind="commonSwitchProperties"
+		v-model="bErrorLogs"
+		@update:modelValue="setLog($event, 'error')"
+		:label="`Error: ${bErrorLogs ? 'On' : 'Off'}`"
+	/>
+
+	<v-switch
+		v-bind="commonSwitchProperties"
+		v-model="bTodoLogs"
+		@update:modelValue="setLog($event, 'todo')"
+		:label="`Todo: ${bTodoLogs ? 'On' : 'Off'}`"
+	/>
+
+	<v-switch
+		v-bind="commonSwitchProperties"
+		v-model="bVisualizeAll"
+		@update:modelValue="setVisualize($event, 'all')"
+		:label="`All Visualizations: ${bVisualizeAll ? 'On' : 'Off'}`"
 	/>
 </template>

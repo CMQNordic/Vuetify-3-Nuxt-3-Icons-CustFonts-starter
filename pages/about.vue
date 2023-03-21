@@ -2,11 +2,11 @@
 	const { log } = useLogs();
 	log.info(() => console.log(`✅ Initializing About page`));
 
-	onMounted(() => log.info(() => console.log(`✅ About page mounted.`)));
+	onMounted(() => log.info(() => console.log(`✅ About page mounted`)));
 </script>
 
 <template>
-	<!-- ABOUT PAGE -->
+	<!-- About page -->
 	<v-card class="elevation-5 text-center">
 		<h1>This is About page</h1>
 		<p class="py-2">Built Vue3 & Vuetify3</p>
