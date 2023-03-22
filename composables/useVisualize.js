@@ -1,5 +1,5 @@
 import { useStorage } from "@vueuse/core";
-import { info, debug, error, assert, TODO } from "@/composables/useLogs.js ";
+import { info, debug, error, assert, TODO } from "@/composables/useLogs.js";
 
 const bVisualizeAll = useStorage("vue-app-visualize-all", false);
 const bVisualizeElements = useStorage("vue-app-visualize-frame", false);
